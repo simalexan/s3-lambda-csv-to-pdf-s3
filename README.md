@@ -21,6 +21,10 @@ This component has one CloudFormation deployment parameter:
 
 - `OutputBucketName`, an optional parameter, represents the name of the Output PDF Bucket. By default its "s3-lambda-pdf-output-from-csv-s3-bucket".
 
+- `CSVSeparator`, an optional parameter, represents the CSV data separator. By default its a single comma ",".
+
+- `HasHeaders`, an optional parameter, represents a check whether to incorporate headers . By default its "true".
+
 ## Latest Release - 1.0.0
 
 - Initial Release
