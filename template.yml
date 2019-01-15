@@ -38,8 +38,8 @@ Resources:
       Environment:
         Variables:
           RESULTS_BUCKET_NAME: !Ref OutputS3Bucket
-          EXTENSION: '.html'
-          MIME_TYPE: 'text/html'
+          EXTENSION: '.pdf'
+          MIME_TYPE: 'application/pdf'
           SEPARATOR: !Ref CSVSeparator
           HAS_HEADERS: !Ref HasHeaders
       Events:
