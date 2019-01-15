@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: A serverless component for Markdown to HTML conversion
+Parameters:
+  ConversionTimeout:
+    Type: Number
+    Default: 60
+  InputBucketName:
+    Type: String
+    Default: 's3-lambda-csv-input-to-pdf-s3-bucket'
+  OutputBucketName:
+    Type: String
+    Default: 's3-lambda-pdf-output-from-csv-s3-bucket'
+  CSVSeparator:
+    Type: String
+    Default: ','
+  HasHeaders:
+    Type: String
+    Default: 'true'
+
+Resources:
+  InputS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref InputBucketName
+  ConvertFileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Timeout: !Ref ConversionTimeout
+      MemorySize: 512
+      Runtime: nodejs8.10
+      Policies:
+      - S3ReadPolicy:
+          BucketName: !Ref InputBucketName
+      - S3CrudPolicy:
+          BucketName: !Ref OutputBucketName
+      Environment:
+        Variables:
+          RESULTS_BUCKET_NAME: !Ref OutputS3Bucket
+          EXTENSION: '.html'
+          MIME_TYPE: 'text/html'
+          SEPARATOR: !Ref CSVSeparator
+          HAS_HEADERS: !Ref HasHeaders
+      Events:
+        FileUpload:
+          Type: S3
+          Properties:
+            Bucket: !Ref InputS3Bucket
+            Events: s3:ObjectCreated:*
+  OutputS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref OutputBucketName
+
+Outputs:
+  InputS3Bucket:
+    Description: Input S3 bucket
+    Value: !Ref InputS3Bucket
+  OutputS3Bucket:
+    Description: Output S3 bucket
+    Value: !Ref OutputS3Bucket
+
