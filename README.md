@@ -17,9 +17,9 @@ This component has one CloudFormation deployment parameter:
 
 - `ConversionTimeout`, an optional parameter, represents the timeout of the Conversion Lambda function. By default its 60 seconds.
 
-- `InputBucketName`, an optional parameter, represents the name of the Input Markdown Bucket. By default its "s3-lambda-csv-input-to-pdf-s3-bucket".
+- `InputBucketName`, an optional parameter, represents the name of the Input CSV Bucket. By default its "s3-lambda-csv-input-to-pdf-s3-bucket".
 
-- `OutputBucketName`, an optional parameter, represents the name of the Output HTML Bucket. By default its "s3-lambda-pdf-output-from-csv-s3-bucket".
+- `OutputBucketName`, an optional parameter, represents the name of the Output PDF Bucket. By default its "s3-lambda-pdf-output-from-csv-s3-bucket".
 
 ## Latest Release - 1.0.0
 
